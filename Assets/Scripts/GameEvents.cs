@@ -58,4 +58,41 @@ public static class GameEvent
             OnCorrectWord(word, squareIndexas);
         }
     }
+
+    public delegate void BoardCompleted();
+    public static event BoardCompleted OnBoardCompleted;
+
+    public static void BoardCompletedMethod()
+    {
+        if (OnBoardCompleted != null)
+            OnBoardCompleted();
+    }
+
+    public delegate void UnlockNextCategory();
+    public static event UnlockNextCategory OnUnlockNextCategory;
+
+    public static void UnlockNextCategoryMethod()
+    {
+        if (OnUnlockNextCategory != null)
+            OnUnlockNextCategory();
+    }
+
+    public delegate void LoadNextLevel();
+    public static event LoadNextLevel OnLoadNextLevel;
+
+    public static void LoadNextLevelMethod()
+    {
+        if (OnLoadNextLevel != null)
+            OnLoadNextLevel();
+    }
+
+    public delegate void GameOver();
+    public static event GameOver OnGameOver;
+
+    public static void GameOverMethod()
+    {
+        if (OnGameOver != null)
+            OnGameOver();
+    }
+
 }

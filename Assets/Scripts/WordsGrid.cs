@@ -64,6 +64,7 @@ public class WordsGrid : MonoBehaviour
 
         return startPosition;
     }
+    
     private void SpawnGridSquares()
     {
         if (currentGameData != null)
@@ -80,7 +81,7 @@ public class WordsGrid : MonoBehaviour
                     if (normalLetterData.image == null || selectedLetterData.image == null)
                     {
                         Debug.LogError("All fields in your array should have some letters.Press Fill up with random button in your board data to add random letter. Letter :" + squareLetter);
-
+                        
 #if UNITY_EDITOR
 
                         if (UnityEditor.EditorApplication.isPlaying)
@@ -96,6 +97,7 @@ public class WordsGrid : MonoBehaviour
                         squareList[squareList.Count - 1].transform.SetParent(this.transform);
                         squareList[squareList.Count - 1].GetComponent<Transform>().position = new Vector3(0f, 0f, 0f);
                         squareList[squareList.Count - 1].transform.localScale = squareScale;
+                        squareList[squareList.Count - 1].GetComponent<GridSquare>().SetIndex(squareList.Count - 1);
                     }
 
                 }

@@ -23,7 +23,7 @@ public class GridSquare : MonoBehaviour
 
     public int GetIndex()
     {
-        return _index; 
+        return _index;
     }
     private void Start()
     {
@@ -38,7 +38,7 @@ public class GridSquare : MonoBehaviour
         GameEvent.OnEnableSquareSelection += OnEnableSquareSelection;
         GameEvent.OnDisableSquareSelection += OnDisableSquareSelection;
         GameEvent.OnSelectSquare += SelectSquare;
-        //GameEvent.OnCorrectWord += CorrectWord;
+        GameEvent.OnCorrectWord += CorrectWord;
     }
 
     private void OnDisable()
@@ -46,6 +46,19 @@ public class GridSquare : MonoBehaviour
         GameEvent.OnEnableSquareSelection -= OnEnableSquareSelection;
         GameEvent.OnDisableSquareSelection -= OnDisableSquareSelection;
         GameEvent.OnSelectSquare -= SelectSquare;
+        GameEvent.OnCorrectWord -= CorrectWord;
+    }
+
+    private void CorrectWord(string word, List<int> squareIndexes)
+    {
+        if (_selected && squareIndexes.Contains(_index))
+        {
+            _correct = true;
+            displayedImage.sprite = _correctLetterData.image;
+        }
+
+        _selected = false;
+        _clicked = false;
     }
 
     public void OnEnableSquareSelection()
@@ -60,9 +73,9 @@ public class GridSquare : MonoBehaviour
         _clicked = false;
 
         if (_correct == true)
-            displayedImage.sprite = _correctLetterData.image; 
+            displayedImage.sprite = _correctLetterData.image;
         else
-            displayedImage.sprite = _normaLetterData.image; 
+            displayedImage.sprite = _normaLetterData.image;
     }
 
     private void SelectSquare(Vector3 position)

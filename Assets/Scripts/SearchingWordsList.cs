@@ -111,7 +111,7 @@ public class SearchingWordsList : MonoBehaviour
         var totalSquaresHeight = squareSize.y * _rows;
 
         if (totalSquaresHeight > parentRect.rect.height)
-        {
+        { 
             while (totalSquaresHeight > squareRect.rect.height)
             {
                 if (TryIncreaseColumnNumber())

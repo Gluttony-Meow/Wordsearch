@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
 using static GameEvent;
+using UnityEngine.SceneManagement;
 
 public class WordChecker : MonoBehaviour
 {
     public GameData currentGameData;
+    public GameLevelData gameLevelData;
 
     private string _word;
 
@@ -25,12 +27,19 @@ public class WordChecker : MonoBehaviour
     {
         GameEvent.OnCheckSquare += SquareSelected;
         GameEvent.OnClearSelection += ClearSelection;
+        GameEvent.OnLoadNextLevel += LoadNextGameLevel;
     }
 
     private void OnDisable()
     {
         GameEvent.OnCheckSquare -= SquareSelected;
         GameEvent.OnClearSelection += ClearSelection;
+        GameEvent.OnLoadNextLevel -= LoadNextGameLevel;
+    }
+
+    private void LoadNextGameLevel()
+    {
+        SceneManager.LoadScene("GameScene");
     }
     void Start()
     {
@@ -67,7 +76,7 @@ public class WordChecker : MonoBehaviour
             _rayLeft = new Ray(new Vector2(squarePosition.x, squarePosition.y), new Vector2(-1, 0f));
             _rayRight = new Ray(new Vector2(squarePosition.x, squarePosition.y), new Vector2(1, 0f));
             _rayDiagonalLeftUp = new Ray(new Vector2(squarePosition.x, squarePosition.y), new Vector2(-1, 1));
-            _rayDiagonalLeftDown = new Ray(new Vector2(squarePosition.x, squarePosition.y), new Vector2(1, -1));
+            _rayDiagonalLeftDown = new Ray(new Vector2(squarePosition.x, squarePosition.y), new Vector2(-1, -1));
             _rayDiagonalRightUp = new Ray(new Vector2(squarePosition.x, squarePosition.y), new Vector2(1, 1));
             _rayDiagonalRightDown = new Ray(new Vector2(squarePosition.x, squarePosition.y), new Vector2(1, -1));
         }
@@ -99,8 +108,10 @@ public class WordChecker : MonoBehaviour
             if (_word == searchingWord.Word)
             {
                 GameEvent.CorrectWordMethod(_word, _correctSquareList);
+                _completedWords++;
                 _word = string.Empty;
                 _correctSquareList.Clear();
+                CheckBoardCompleted();
                 return;
             }
         }
@@ -155,5 +166,63 @@ public class WordChecker : MonoBehaviour
         _assignedPoints = 0;
         _correctSquareList.Clear();
         _word = String.Empty;
+    }
+
+    private void CheckBoardCompleted()
+    {
+        bool loadNextCategory = false;
+
+        if (currentGameData.selectedBoardData.searchWords.Count == _completedWords)
+        {
+            var categoryName = currentGameData.selectedCategoryName;
+            var currentBoardIndex = DataSaver.ReadCategoryCurrentIndexValues(categoryName);
+            var nextBoardIndex = -1;
+            var currentCategoryIndex = 0;
+            bool readNextLevelName = false;
+
+            for (int index = 0; index < gameLevelData.data.Count; index++)
+            {
+                if (readNextLevelName)
+                {
+                    nextBoardIndex = DataSaver.ReadCategoryCurrentIndexValues(gameLevelData.data[index].categoryName);
+                    readNextLevelName = false;
+                }
+
+                if (gameLevelData.data[index].categoryName == categoryName)
+                {
+                    readNextLevelName = true;
+                    currentCategoryIndex = index;
+                }
+            }
+
+            var currentLevelSize = gameLevelData.data[currentCategoryIndex].boardData.Count;
+            if (currentBoardIndex < currentLevelSize)
+                currentBoardIndex += 1;
+
+            DataSaver.SaveCategoryData(categoryName, currentBoardIndex);
+
+            //unlock next category
+            if (currentBoardIndex >= currentLevelSize)
+            {
+                currentCategoryIndex++;
+                if (currentCategoryIndex < gameLevelData.data.Count)
+                {
+                    categoryName = gameLevelData.data[currentCategoryIndex].categoryName;
+                    currentBoardIndex = 0;
+                    loadNextCategory = true;
+
+                    if (nextBoardIndex <= 0)
+                        DataSaver.SaveCategoryData(categoryName, currentBoardIndex);
+                    else
+                        SceneManager.LoadScene("SelectCategory");
+                }
+            }
+            else
+            {
+                GameEvent.BoardCompletedMethod();
+            }
+            if (loadNextCategory)
+                GameEvent.UnlockNextCategoryMethod(); 
+        }
     }
 }

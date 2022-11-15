@@ -76,7 +76,7 @@ public class WordsGrid : MonoBehaviour
                     var normalLetterData = alphabetData.AlphabetNormal.Find(data => data.letter == squareLetter);
                     var selectedLetterData = alphabetData.AlphabetHighlighted.Find(data => data.letter == squareLetter);
                     var correctLetterData = alphabetData.AlphabetWrong.Find(data => data.letter == squareLetter);
-                    Debug.Log($"hello {normalLetterData}");
+                    
                     if (normalLetterData.image == null || selectedLetterData.image == null)
                     {
                         Debug.LogError("All fields in your array should have some letters.Press Fill up with random button in your board data to add random letter. Letter :" + squareLetter);

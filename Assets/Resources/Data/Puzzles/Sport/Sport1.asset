@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c9a7ef1924ab9c439fc96fd13eb46db, type: 3}
+  m_Name: Sport1
+  m_EditorClassIdentifier: 
+  timeInSeconds: 50
+  Columns: 8
+  Rows: 8
+  Board:
+  - Size: 8
+    Row:
+    - F
+    - O
+    - O
+    - T
+    - B
+    - A
+    - L
+    - L
+  - Size: 8
+    Row:
+    - Z
+    - H
+    - H
+    - E
+    - H
+    - D
+    - K
+    - V
+  - Size: 8
+    Row:
+    - D
+    - A
+    - E
+    - V
+    - P
+    - Z
+    - W
+    - A
+  - Size: 8
+    Row:
+    - F
+    - F
+    - T
+    - V
+    - X
+    - A
+    - C
+    - W
+  - Size: 8
+    Row:
+    - A
+    - C
+    - C
+    - N
+    - J
+    - B
+    - N
+    - D
+  - Size: 8
+    Row:
+    - T
+    - E
+    - N
+    - N
+    - I
+    - S
+    - Z
+    - Y
+  - Size: 8
+    Row:
+    - R
+    - N
+    - M
+    - U
+    - V
+    - O
+    - D
+    - A
+  - Size: 8
+    Row:
+    - B
+    - L
+    - S
+    - Y
+    - L
+    - W
+    - F
+    - O
+  searchWords:
+  - Word: FOOTBALL
+  - Word: TENNIS

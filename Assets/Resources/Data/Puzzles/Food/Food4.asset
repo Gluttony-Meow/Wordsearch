@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c9a7ef1924ab9c439fc96fd13eb46db, type: 3}
+  m_Name: Food4
+  m_EditorClassIdentifier: 
+  timeInSeconds: 50
+  Columns: 6
+  Rows: 6
+  Board:
+  - Size: 6
+    Row:
+    - B
+    - T
+    - E
+    - H
+    - P
+    - C
+  - Size: 6
+    Row:
+    - U
+    - M
+    - A
+    - R
+    - X
+    - X
+  - Size: 6
+    Row:
+    - T
+    - S
+    - A
+    - C
+    - H
+    - A
+  - Size: 6
+    Row:
+    - T
+    - U
+    - N
+    - O
+    - D
+    - K
+  - Size: 6
+    Row:
+    - E
+    - G
+    - G
+    - U
+    - N
+    - R
+  - Size: 6
+    Row:
+    - R
+    - S
+    - E
+    - W
+    - S
+    - U
+  searchWords:
+  - Word: BUTTER
+  - Word: EGG
+  - Word: DONUT

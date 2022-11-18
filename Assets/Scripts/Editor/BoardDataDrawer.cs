@@ -23,6 +23,7 @@ public class BoardDataDrawer : Editor
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
+        GameDataInstance.timeInSeconds = EditorGUILayout.FloatField("Max Game Time (in seconds)", GameDataInstance.timeInSeconds);
         DrawColumnsRowsInputFields();
         EditorGUILayout.Space();
         ConvertToUpperButton();
@@ -133,11 +134,13 @@ public class BoardDataDrawer : Editor
         {
             for (var i = 0; i < GameDataInstance.Columns; i++)
             {
-                for (var j = 0; i < GameDataInstance.Rows; i++)
+                for (var j = 0; j < GameDataInstance.Rows; j++)
                 {
                     var errorCounter = Regex.Match(GameDataInstance.Board[i].Row[j], @"[a-z]").Length;
                     if (errorCounter > 0)
+                    {
                         GameDataInstance.Board[i].Row[j] = GameDataInstance.Board[i].Row[j].ToUpper();
+                    }
                 }
             }
 

@@ -19,11 +19,17 @@ public class AlphabetDataDrawer : Editor
         InitializeReordableList(ref AlphabetPlainList,"AlphabetPlain", "Alphabet Plain");
         InitializeReordableList(ref AlphabetNormalList, "AlphabetNormal", "Alphabet Normal");
         InitializeReordableList(ref AlphabetHighlightedList, "AlphabetHighlighted", "Alphabet Highlighted");
+        InitializeReordableList(ref AlphabetWrongList, "AlphabetWrong", "Alphabet Wrong");
 
     }
     public override void OnInspectorGUI()
     {
-
+        serializedObject.Update();
+        AlphabetPlainList.DoLayoutList();
+        AlphabetNormalList.DoLayoutList();
+        AlphabetHighlightedList.DoLayoutList();
+        AlphabetWrongList.DoLayoutList();
+        serializedObject.ApplyModifiedProperties();
     }
     private void InitializeReordableList(ref ReorderableList list, string propertyName, string listLael)
     {
